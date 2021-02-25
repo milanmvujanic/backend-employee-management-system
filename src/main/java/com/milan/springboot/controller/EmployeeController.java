@@ -32,6 +32,27 @@ public class EmployeeController {
 	public List<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
 	}
+	
+	/*
+	 * This method is inserted for traffic-accident-analysis-calculation-tool testing.
+	 * It should return name of the parameter -> "VnSodFullFrontImpact"
+	 * along with dummy calculation result (Sod + ma + mp)
+	 */
+	
+	@PostMapping("/calculateVn")
+	public Map<String, String> calculateVn(@RequestBody Map<String, Object> input) {
+		Map<String, String> resultMap = new HashMap<>();
+		resultMap.put("parameterName", (String) input.get("parameterName"));
+		
+		Double Sod = (Double) input.get("Sod");
+		Double ma = (Double) input.get("ma");
+		Double mp = (Double) input.get("mp");
+		
+		Double result = Sod + ma + mp;
+		resultMap.put("result", result + "");
+		
+		return resultMap;
+	}
 
 	@PostMapping
 	public Employee createEmployee(@RequestBody Employee employee) {
